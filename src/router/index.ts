@@ -6,7 +6,7 @@ const PreparationView = () => import("../views/PreparationView.vue");
 const ShoppingView = () => import("../views/ShoppingView.vue");
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory("/fishing-log/"),
   routes: [
     {
       path: "/",
