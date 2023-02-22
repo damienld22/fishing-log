@@ -4,6 +4,7 @@
   "lang": "en",
   "display": "standalone",
   "start_url": "/fishing-log/",
+  "scope": "/fishing-log/",
   "background_color": "#FFFFFF",
   "theme_color": "#FFFFFF",
   "icons": [
