@@ -1,3 +1,3 @@
 <template>
-  <p>Shopping</p>
+  <p>Shopping view</p>
 </template>
