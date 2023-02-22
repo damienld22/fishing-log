@@ -1,9 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-
-const PlacesView = () => import("../views/PlacesView.vue");
-const PreparationView = () => import("../views/PreparationView.vue");
-const ShoppingView = () => import("../views/ShoppingView.vue");
+import PlacesView from "../views/PlacesView.vue";
+import PreparationView from "../views/PreparationView.vue";
+import ShoppingView from "../views/ShoppingView.vue";
 
 const router = createRouter({
   history: createWebHistory("/fishing-log/"),
