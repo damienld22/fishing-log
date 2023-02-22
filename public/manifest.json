@@ -3,7 +3,7 @@
   "short_name": "Fishing log",
   "lang": "en",
   "display": "standalone",
-  "start_url": "/fishing-log/",
+  "start_url": "/",
   "background_color": "#FFFFFF",
   "theme_color": "#FFFFFF",
   "icons": [
