@@ -9,7 +9,7 @@
     "dev": "vite",
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit",
-    "gh-pages-deploy": "node scripts/gh-pages-deploy.mjs"
+    "deploy": "node scripts/gh-pages-deploy.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
