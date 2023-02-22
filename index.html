@@ -15,7 +15,9 @@
     <script type="module" src="/src/main.ts"></script>
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/fishing-log/sw.js", { scope: "/" });
+        navigator.serviceWorker.register("/fishing-log/sw.js", {
+          scope: "/fishing-log/",
+        });
       }
     </script>
   </body>
