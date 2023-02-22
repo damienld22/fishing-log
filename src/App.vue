@@ -1,6 +1,9 @@
 <template>
   <HeaderComponent />
-  <RouterView />
+
+  <div class="mx-4 mt-4 mb-32">
+    <RouterView />
+  </div>
 </template>
 
 <script setup lang="ts">
