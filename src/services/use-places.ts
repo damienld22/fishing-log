@@ -53,14 +53,3 @@ export function usePlaces() {
     deletePlace,
   };
 }
-
-export function getOneFishingPlaceById(placeId: string): FishingPlace | undefined {
-  const allPlaces = fetchFromStorage();
-  return allPlaces.find((elt) => elt.id === placeId);
-}
-
-export function deleteFishingPlace(placeId: string) {
-  const allPlaces = fetchFromStorage();
-  const updatedPlaces = allPlaces.filter((elt) => elt.id !== placeId);
-  updateFishingPlaces(updatedPlaces);
-}
