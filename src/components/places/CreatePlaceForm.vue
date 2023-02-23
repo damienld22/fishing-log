@@ -1,6 +1,15 @@
 <template>
   <div class="flex flex-col">
+    <font-awesome-icon icon="fa-close" size="sm" class="self-end" @click="emits('cancel')" />
     <TextInput field="name" v-model="form.values.name" placeholder="Name" label="Name" :validation="nameValidation" />
+    <TextInput
+      field="surface"
+      type="number"
+      v-model.number="form.values.surface"
+      placeholder="50"
+      label="Surface (ha)"
+      :validation="surfaceValidation"
+    />
 
     <YesNoSwitchWithDescription v-model="form.values.nightFishing" label="Night fishing" />
     <YesNoSwitchWithDescription v-model="form.values.boatAuthorized" label="Navigation" />
@@ -35,7 +44,14 @@ const handleValidate = async () => {
 };
 
 // Validations
-const nameValidation = (value: string) => (value?.length > 0 ? true : "Please type a name");
+const nameValidation = (value?: string) => (value && value?.length > 0 ? true : "Please type a name");
+const surfaceValidation = (value?: number | string) => {
+  if (typeof value === "undefined" || typeof value === "string") {
+    return true;
+  } else {
+    return value > 0 ? true : "Please type a valid surface";
+  }
+};
 
 // Emits
 const emits = defineEmits<{

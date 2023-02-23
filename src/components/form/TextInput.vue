@@ -4,7 +4,7 @@
       <span class="label-text">{{ props.label }}</span>
     </label>
     <input
-      type="text"
+      :type="props.type || 'text'"
       :placeholder="props.placeholder"
       :value="modelValue"
       @input="onChange"
@@ -22,13 +22,14 @@ import { useField } from "vee-validate";
 const props = defineProps<{
   label?: string;
   placeholder?: string;
-  validation?: (value: string) => string | boolean;
-  modelValue?: string;
+  validation?: (value?: string) => string | boolean;
+  modelValue?: string | number;
   field: string;
+  type?: string;
 }>();
 
 const emits = defineEmits<{
-  (e: "update:modelValue", value: string): void;
+  (e: "update:modelValue", value: string | number): void;
 }>();
 
 // Field validation

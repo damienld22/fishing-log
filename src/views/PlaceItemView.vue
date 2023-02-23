@@ -5,10 +5,11 @@
   </div>
 
   <!-- Title -->
-  <p class="text-center text-xl mt-6">
+  <div class="text-center text-xl mt-6">
     <span>{{ place?.name }}</span>
     <font-awesome-icon v-if="place?.link" @click="handleClickLink" icon="fa-up-right-from-square" class="ml-2" />
-  </p>
+    <p v-if="place?.surface" class="italic text-sm">({{ place?.surface }} ha)</p>
+  </div>
 
   <div class="mx-4 mt-6">
     <CollapseText title="Night fishing" :content="computedNightFishing" />

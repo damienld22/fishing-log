@@ -9,7 +9,10 @@
     <tbody>
       <tr @click="() => handleClickItem(place.id)" :key="place.id" v-for="place in props.places">
         <td class="text-xs">
-          {{ place.name }}
+          <div>
+            <p>{{ place.name }}</p>
+            <p v-if="place?.surface" class="italic">({{ place?.surface }} ha)</p>
+          </div>
         </td>
         <td class="text-center">
           <font-awesome-icon v-if="place.nightFishing" icon="fa-moon" size="xs" class="mx-1" />
