@@ -5,7 +5,10 @@
   </div>
 
   <!-- Title -->
-  <p class="text-center text-xl mt-6">{{ place?.name }}</p>
+  <p class="text-center text-xl mt-6">
+    <span>{{ place?.name }}</span>
+    <font-awesome-icon v-if="place?.link" @click="handleClickLink" icon="fa-up-right-from-square" class="ml-2" />
+  </p>
 
   <div class="mx-4 mt-6">
     <NightFishingInformation :place="place" />
@@ -35,6 +38,7 @@ const place = ref(getOneFishingPlaceById(params.id as string));
 
 // Navigation
 const { back } = useRouter();
+const handleClickLink = () => window.open(place?.value?.link, "_blank");
 
 // Delete
 const deleteModalOpen = ref(false);

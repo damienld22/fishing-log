@@ -1,9 +1,11 @@
 <template>
   <div class="flex flex-col">
-    <TextInput v-model="form.values.name" placeholder="Name" label="Name" error-message="Please type a name" />
+    <TextInput field="name" v-model="form.values.name" placeholder="Name" label="Name" :validation="nameValidation" />
 
     <YesNoSwitchWithDescription v-model="form.values.nightFishing" label="Night fishing" />
     <YesNoSwitchWithDescription v-model="form.values.boatAuthorized" label="Navigation" />
+
+    <TextInput field="link" v-model="form.values.link" placeholder="Link" label="Link" />
   </div>
 
   <div class="flex justify-between mt-6">
@@ -28,6 +30,9 @@ const handleValidate = async () => {
     form.resetForm();
   }
 };
+
+// Validations
+const nameValidation = (value: string) => (value?.length > 0 ? true : "Please type a name");
 
 // Emits
 const emits = defineEmits<{

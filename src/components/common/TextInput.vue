@@ -19,13 +19,12 @@
 <script setup lang="ts">
 import { useField } from "vee-validate";
 
-const DEFAULT_ERROR_MESSAGE = "Please fill this input";
-
 const props = defineProps<{
   label?: string;
   placeholder?: string;
-  errorMessage?: string;
+  validation?: (value: string) => string | boolean;
   modelValue?: string;
+  field: string;
 }>();
 
 const emits = defineEmits<{
@@ -33,9 +32,7 @@ const emits = defineEmits<{
 }>();
 
 // Field validation
-const { errorMessage } = useField<string>("name", (value: string) =>
-  value?.length > 0 ? true : props.errorMessage || DEFAULT_ERROR_MESSAGE
-);
+const { errorMessage } = useField<string>(props.field, props?.validation);
 
 const onChange = (event: Event) => {
   emits("update:modelValue", (event.target as HTMLInputElement).value);
