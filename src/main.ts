@@ -11,12 +11,14 @@ import {
   faTrash,
   faCheck,
   faPlus,
+  faArrowLeft,
+  faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
 
 const app = createApp(App);
 
-library.add(faHouse, faShoppingCart, faLocationDot, faBoxArchive, faTrash, faCheck, faPlus);
+library.add(faHouse, faShoppingCart, faLocationDot, faBoxArchive, faTrash, faCheck, faPlus, faArrowLeft, faMoon);
 
 app.component("font-awesome-icon", FontAwesomeIcon);
 
