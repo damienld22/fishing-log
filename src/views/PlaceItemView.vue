@@ -18,7 +18,7 @@
     <CollapseText title="Night fishing" :content="computedNightFishing" />
     <CollapseText title="Boat authorized" :content="computedBoatInfos" />
     <CollapseText title="Infos" :content="place?.infos" />
-    <FishingPostsList :place="place" @add-post="handleAddPost" />
+    <FishingPostsList :place="place" @add-post="handleAddPost" @delete-post="handleDeletePost" />
   </div>
 
   <!-- Delete confirmation -->
@@ -47,7 +47,7 @@ import { useRoute, useRouter } from "vue-router";
 const { params } = useRoute();
 
 // Element
-const { places, updatePlace, deletePlace, addPost } = usePlaces();
+const { places, updatePlace, deletePlace, addPost, deletePost } = usePlaces();
 const place = computed(() => places.value.find((elt) => elt.id === params.id));
 
 // Navigation
@@ -91,5 +91,8 @@ const handleEdition = (place: NewFishingPlace) => {
 // Posts
 const handleAddPost = (post: NewFishingPost) => {
   addPost(params.id as string, post);
+};
+const handleDeletePost = (postId: string) => {
+  deletePost(params.id as string, postId);
 };
 </script>

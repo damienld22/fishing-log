@@ -3,8 +3,13 @@
     <input type="checkbox" />
     <div class="collapse-title">Posts</div>
     <div class="collapse-content flex flex-col">
-      <div v-if="props.place">
-        <FishingPostItemList :post="post" :key="post.id" v-for="post in props.place.posts" />
+      <div class="mb-6" v-if="props.place">
+        <FishingPostItemList
+          @delete-post="(id: string) => emits('deletePost', id)"
+          :post="post"
+          :key="post.id"
+          v-for="post in props.place.posts"
+        />
       </div>
 
       <button @click="() => (modalCreationOpen = true)" class="btn btn-circle btn-xs self-end">
@@ -50,6 +55,7 @@ const props = defineProps<{
 
 const emits = defineEmits<{
   (e: "addPost", post: NewFishingPost): void;
+  (e: "deletePost", postId: string): void;
 }>();
 
 // Form handler

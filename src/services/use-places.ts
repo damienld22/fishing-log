@@ -71,6 +71,18 @@ export function usePlaces() {
     }
   };
 
+  const deletePost = (placeId: string, postId: string) => {
+    const updatedPlaces = [...places.value];
+    const indexPlace = updatedPlaces.findIndex((elt) => elt.id === placeId);
+    const place = updatedPlaces[indexPlace];
+
+    if (place) {
+      place.posts = place.posts.filter((elt) => elt.id !== postId);
+      places.value = updatedPlaces;
+      overrideStorage(places.value);
+    }
+  };
+
   onMounted(() => {
     places.value = fetchFromStorage();
   });
@@ -81,5 +93,6 @@ export function usePlaces() {
     updatePlace,
     deletePlace,
     addPost,
+    deletePost,
   };
 }
