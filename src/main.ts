@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import OpenLayersMap from "vue3-openlayers";
+import "vue3-openlayers/dist/vue3-openlayers.css";
 import {
   faHouse,
   faShoppingCart,
@@ -41,5 +43,6 @@ library.add(
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.use(router);
+app.use(OpenLayersMap);
 
 app.mount("#app");

@@ -18,6 +18,7 @@
     <CollapseText title="Night fishing" :content="computedNightFishing" />
     <CollapseText title="Boat authorized" :content="computedBoatInfos" />
     <CollapseText title="Infos" :content="place?.infos" />
+    <FishingPostsList :place="place" @add-post="handleAddPost" />
   </div>
 
   <!-- Delete confirmation -->
@@ -38,14 +39,15 @@
 import CollapseText from "@/components/common/CollapseText.vue";
 import ConfirmModal from "@/components/common/ConfirmModal.vue";
 import ModalComponent from "@/components/common/ModalComponent.vue";
+import FishingPostsList from "@/components/places/FishingPostsList.vue";
 import PlaceForm from "@/components/places/PlaceForm.vue";
-import { usePlaces, type NewFishingPlace } from "@/services/use-places";
+import { usePlaces, type NewFishingPlace, type NewFishingPost } from "@/services/use-places";
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 const { params } = useRoute();
 
 // Element
-const { places, updatePlace, deletePlace } = usePlaces();
+const { places, updatePlace, deletePlace, addPost } = usePlaces();
 const place = computed(() => places.value.find((elt) => elt.id === params.id));
 
 // Navigation
@@ -84,5 +86,10 @@ const handleEdition = (place: NewFishingPlace) => {
   const id = params.id as string;
   updatePlace(id, { ...place, id });
   setEditionModalState(false);
+};
+
+// Posts
+const handleAddPost = (post: NewFishingPost) => {
+  addPost(params.id as string, post);
 };
 </script>

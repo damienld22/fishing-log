@@ -9,9 +9,21 @@ export type FishingPlace = {
   boatAuthorized?: boolean | string;
   surface?: number;
   infos?: string;
+  posts: FishingPost[];
 };
 
 export type NewFishingPlace = Omit<FishingPlace, "id">;
+
+export type FishingPost = {
+  id: string;
+  name: string;
+  location: GPSPosition;
+  infos: string;
+};
+
+export type GPSPosition = [number, number];
+
+export type NewFishingPost = Omit<FishingPost, "id">;
 
 const LOCAL_STORAGE_KEY = "fishing-log-places";
 
@@ -27,7 +39,7 @@ export function usePlaces() {
   const places = ref<FishingPlace[]>([]);
 
   const addNewPlace = (place: NewFishingPlace) => {
-    const newPlace: FishingPlace = { ...place, id: uniqid() };
+    const newPlace: FishingPlace = { ...place, id: uniqid(), posts: [] };
     places.value = [...places.value, newPlace];
     overrideStorage(places.value);
   };
@@ -42,6 +54,23 @@ export function usePlaces() {
     overrideStorage(places.value);
   };
 
+  const addPost = (placeId: string, newPost: NewFishingPost) => {
+    const updatedPlaces = [...places.value];
+    const indexPlace = updatedPlaces.findIndex((elt) => elt.id === placeId);
+    const place = updatedPlaces[indexPlace];
+
+    if (place) {
+      const post: FishingPost = {
+        ...newPost,
+        id: uniqid(),
+        name: newPost?.name || (place.posts.length + 1).toString(),
+      };
+      place.posts = [...place.posts, post];
+      places.value = updatedPlaces;
+      overrideStorage(places.value);
+    }
+  };
+
   onMounted(() => {
     places.value = fetchFromStorage();
   });
@@ -51,5 +80,6 @@ export function usePlaces() {
     addNewPlace,
     updatePlace,
     deletePlace,
+    addPost,
   };
 }
