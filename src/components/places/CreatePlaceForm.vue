@@ -14,7 +14,7 @@
     <YesNoSwitchWithDescription v-model="form.values.nightFishing" label="Night fishing" />
     <YesNoSwitchWithDescription v-model="form.values.boatAuthorized" label="Navigation" />
 
-    <TextInput field="link" v-model="form.values.link" placeholder="Link" label="Link" />
+    <TextInput field="link" v-model="form.values.link" placeholder="Link" label="Link" :validation="linkValidation" />
 
     <TextAreaInput field="infos" v-model="form.values.infos" placeholder="Infos" label="Infos" />
   </div>
@@ -31,6 +31,7 @@ import { useForm } from "vee-validate";
 import type { NewFishingPlace } from "@/services/places";
 import YesNoSwitchWithDescription from "../form/YesNoSwitchWithDescription.vue";
 import TextAreaInput from "../form/TextAreaInput.vue";
+import { isValidUrl } from "@/helpers/url";
 
 // Form handler
 const form = useForm<NewFishingPlace>();
@@ -45,6 +46,7 @@ const handleValidate = async () => {
 
 // Validations
 const nameValidation = (value?: string) => (value && value?.length > 0 ? true : "Please type a name");
+const linkValidation = (value?: string) => (!value || isValidUrl(value) ? true : "Please type a valid URL");
 const surfaceValidation = (value?: number | string) => {
   if (typeof value === "undefined" || typeof value === "string") {
     return true;
