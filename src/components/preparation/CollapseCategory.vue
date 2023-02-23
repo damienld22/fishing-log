@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PreparationCategory } from "@/services/preparation";
+import type { PreparationCategory } from "@/services/use-preparation";
 
 const props = defineProps<{
   category: PreparationCategory;
