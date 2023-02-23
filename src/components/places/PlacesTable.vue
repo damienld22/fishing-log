@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FishingPlace } from "@/services/places";
+import type { FishingPlace } from "@/services/use-places";
 import { useRouter } from "vue-router";
 
 const props = defineProps<{

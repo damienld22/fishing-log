@@ -3,30 +3,28 @@
 
   <!-- Creation modal -->
   <ModalComponent :open="creationModalOpen">
-    <CreatePlaceForm @cancel="() => toggleCreationModal(false)" @validate="handlePlaceCreation" />
+    <PlaceForm @cancel="() => toggleCreationModal(false)" @validate="handlePlaceCreation" />
   </ModalComponent>
 
   <AddButton @click="() => toggleCreationModal(true)" />
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
-import uniqid from "uniqid";
+import { ref } from "vue";
 import AddButton from "@/components/common/AddButton.vue";
 import ModalComponent from "@/components/common/ModalComponent.vue";
-import CreatePlaceForm from "@/components/places/CreatePlaceForm.vue";
+import PlaceForm from "@/components/places/PlaceForm.vue";
 import PlacesTable from "@/components/places/PlacesTable.vue";
-import { fetchAllFishingPlaces, updateFishingPlaces, type FishingPlace, type NewFishingPlace } from "@/services/places";
+import { usePlaces, type NewFishingPlace } from "@/services/use-places";
 
 // Interaction with service
-const places = ref<FishingPlace[]>(fetchAllFishingPlaces());
-watchEffect(() => updateFishingPlaces(places.value));
+const { places, addNewPlace } = usePlaces();
 
 // Creation modal
 const creationModalOpen = ref(false);
 const toggleCreationModal = (value: boolean) => (creationModalOpen.value = value);
 const handlePlaceCreation = (newPlace: NewFishingPlace) => {
-  places.value = [...places.value, { ...newPlace, id: uniqid() }];
+  addNewPlace(newPlace);
   creationModalOpen.value = false;
 };
 </script>

@@ -1,7 +1,10 @@
 <template>
   <div class="flex justify-between items-center">
     <font-awesome-icon @click="back" icon="fa-arrow-left" size="2x" />
-    <font-awesome-icon @click="() => setDeleteModalState(true)" icon="fa-trash" size="1x" />
+    <div>
+      <font-awesome-icon class="mr-2" @click="() => setEditionModalState(true)" icon="fa-pencil" size="1x" />
+      <font-awesome-icon class="ml-2" @click="() => setDeleteModalState(true)" icon="fa-trash" size="1x" />
+    </div>
   </div>
 
   <!-- Title -->
@@ -24,18 +27,26 @@
     @cancel="() => setDeleteModalState(false)"
     @validate="() => handleDelete()"
   />
+
+  <!-- Edition modal -->
+  <ModalComponent :open="editionModalOpen">
+    <PlaceForm :place="place" @cancel="() => setEditionModalState(false)" @validate="handleEdition" />
+  </ModalComponent>
 </template>
 
 <script setup lang="ts">
 import CollapseText from "@/components/common/CollapseText.vue";
 import ConfirmModal from "@/components/common/ConfirmModal.vue";
-import { deleteFishingPlace, getOneFishingPlaceById } from "@/services/places";
+import ModalComponent from "@/components/common/ModalComponent.vue";
+import PlaceForm from "@/components/places/PlaceForm.vue";
+import { usePlaces, type NewFishingPlace } from "@/services/use-places";
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 const { params } = useRoute();
 
 // Element
-const place = ref(getOneFishingPlaceById(params.id as string));
+const { places, updatePlace, deletePlace } = usePlaces();
+const place = computed(() => places.value.find((elt) => elt.id === params.id));
 
 // Navigation
 const { back } = useRouter();
@@ -61,8 +72,17 @@ const computedBoatInfos = computed(() =>
 const deleteModalOpen = ref(false);
 const setDeleteModalState = (value: boolean) => (deleteModalOpen.value = value);
 const handleDelete = () => {
-  deleteFishingPlace(params.id as string);
+  deletePlace(params.id as string);
   setDeleteModalState(false);
   back();
+};
+
+// Edition
+const editionModalOpen = ref(false);
+const setEditionModalState = (value: boolean) => (editionModalOpen.value = value);
+const handleEdition = (place: NewFishingPlace) => {
+  const id = params.id as string;
+  updatePlace(id, { ...place, id });
+  setEditionModalState(false);
 };
 </script>

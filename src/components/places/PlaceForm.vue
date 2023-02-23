@@ -28,13 +28,17 @@
 <script setup lang="ts">
 import TextInput from "../form/TextInput.vue";
 import { useForm } from "vee-validate";
-import type { NewFishingPlace } from "@/services/places";
+import type { FishingPlace, NewFishingPlace } from "@/services/use-places";
 import YesNoSwitchWithDescription from "../form/YesNoSwitchWithDescription.vue";
 import TextAreaInput from "../form/TextAreaInput.vue";
 import { isValidUrl } from "@/helpers/url";
 
+const props = defineProps<{
+  place?: FishingPlace;
+}>();
+
 // Form handler
-const form = useForm<NewFishingPlace>();
+const form = useForm<NewFishingPlace>({ initialValues: props.place });
 const handleValidate = async () => {
   const { valid } = await form.validate();
 

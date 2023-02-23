@@ -16,6 +16,7 @@ import {
   faSailboat,
   faUpRightFromSquare,
   faClose,
+  faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
 
@@ -33,7 +34,8 @@ library.add(
   faMoon,
   faSailboat,
   faUpRightFromSquare,
-  faClose
+  faClose,
+  faPencil
 );
 
 app.component("font-awesome-icon", FontAwesomeIcon);
