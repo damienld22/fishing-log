@@ -3,6 +3,7 @@
     <TextInput v-model="form.values.name" placeholder="Name" label="Name" error-message="Please type a name" />
 
     <YesNoSwitchWithDescription v-model="form.values.nightFishing" label="Night fishing" />
+    <YesNoSwitchWithDescription v-model="form.values.boatAuthorized" label="Navigation" />
   </div>
 
   <div class="flex justify-between mt-6">

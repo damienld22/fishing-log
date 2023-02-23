@@ -12,7 +12,8 @@
           {{ place.name }}
         </td>
         <td class="text-center">
-          <font-awesome-icon v-if="place.nightFishing" icon="fa-moon" size="xs" />
+          <font-awesome-icon v-if="place.nightFishing" icon="fa-moon" size="xs" class="mx-1" />
+          <font-awesome-icon v-if="place.boatAuthorized" icon="fa-sailboat" size="xs" class="mx-1" />
         </td>
       </tr>
     </tbody>

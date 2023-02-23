@@ -1,17 +1,17 @@
 <template>
   <div
-    v-if="typeof props?.place?.nightFishing === 'string'"
+    v-if="typeof props?.place?.boatAuthorized === 'string'"
     class="my-4 collapse collapse-plus border border-base-300 bg-base-100 rounded-box"
   >
     <input type="checkbox" />
-    <div class="collapse-title">Night fishing : Yes</div>
+    <div class="collapse-title">Boat authorized : Yes</div>
     <div class="collapse-content">
-      <p>{{ props?.place?.nightFishing }}</p>
+      <p>{{ props?.place?.boatAuthorized }}</p>
     </div>
   </div>
   <div v-else>
-    <span>Night fishing :</span>
-    <span class="ml-6">{{ props.place?.nightFishing ? "Yes" : "No" }}</span>
+    <span>Boat authorized :</span>
+    <span class="ml-6">{{ props.place?.boatAuthorized ? "Yes" : "No" }}</span>
   </div>
 </template>
 

@@ -9,6 +9,7 @@
 
   <div class="mx-4 mt-6">
     <NightFishingInformation :place="place" />
+    <BoatInformation :place="place" />
   </div>
 
   <!-- Delete confirmation -->
@@ -22,6 +23,7 @@
 
 <script setup lang="ts">
 import ConfirmModal from "@/components/common/ConfirmModal.vue";
+import BoatInformation from "@/components/places/BoatInformation.vue";
 import NightFishingInformation from "@/components/places/NightFishingInformation.vue";
 import { deleteFishingPlace, getOneFishingPlaceById } from "@/services/places";
 import { ref } from "vue";
