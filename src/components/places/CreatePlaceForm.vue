@@ -6,6 +6,8 @@
     <YesNoSwitchWithDescription v-model="form.values.boatAuthorized" label="Navigation" />
 
     <TextInput field="link" v-model="form.values.link" placeholder="Link" label="Link" />
+
+    <TextAreaInput field="infos" v-model="form.values.infos" placeholder="Infos" label="Infos" />
   </div>
 
   <div class="flex justify-between mt-6">
@@ -15,10 +17,11 @@
 </template>
 
 <script setup lang="ts">
-import TextInput from "../common/TextInput.vue";
+import TextInput from "../form/TextInput.vue";
 import { useForm } from "vee-validate";
 import type { NewFishingPlace } from "@/services/places";
 import YesNoSwitchWithDescription from "../form/YesNoSwitchWithDescription.vue";
+import TextAreaInput from "../form/TextAreaInput.vue";
 
 // Form handler
 const form = useForm<NewFishingPlace>();

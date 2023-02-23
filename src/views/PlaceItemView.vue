@@ -11,8 +11,9 @@
   </p>
 
   <div class="mx-4 mt-6">
-    <NightFishingInformation :place="place" />
-    <BoatInformation :place="place" />
+    <CollapseText title="Night fishing" :content="computedNightFishing" />
+    <CollapseText title="Boat authorized" :content="computedBoatInfos" />
+    <CollapseText title="Infos" :content="place?.infos" />
   </div>
 
   <!-- Delete confirmation -->
@@ -25,11 +26,10 @@
 </template>
 
 <script setup lang="ts">
+import CollapseText from "@/components/common/CollapseText.vue";
 import ConfirmModal from "@/components/common/ConfirmModal.vue";
-import BoatInformation from "@/components/places/BoatInformation.vue";
-import NightFishingInformation from "@/components/places/NightFishingInformation.vue";
 import { deleteFishingPlace, getOneFishingPlaceById } from "@/services/places";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 const { params } = useRoute();
 
@@ -39,6 +39,22 @@ const place = ref(getOneFishingPlaceById(params.id as string));
 // Navigation
 const { back } = useRouter();
 const handleClickLink = () => window.open(place?.value?.link, "_blank");
+
+// Computed infos
+const computedNightFishing = computed(() =>
+  typeof place?.value?.nightFishing === "boolean"
+    ? place?.value?.nightFishing
+      ? "Yes"
+      : "No"
+    : place?.value?.nightFishing
+);
+const computedBoatInfos = computed(() =>
+  typeof place?.value?.boatAuthorized === "boolean"
+    ? place?.value?.boatAuthorized
+      ? "Yes"
+      : "No"
+    : place?.value?.boatAuthorized
+);
 
 // Delete
 const deleteModalOpen = ref(false);
