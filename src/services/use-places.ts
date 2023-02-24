@@ -83,6 +83,18 @@ export function usePlaces() {
     }
   };
 
+  const editPost = (placeId: string, postId: string, post: NewFishingPost) => {
+    const updatedPlaces = [...places.value];
+    const indexPlace = updatedPlaces.findIndex((elt) => elt.id === placeId);
+    const place = updatedPlaces[indexPlace];
+
+    if (place) {
+      place.posts = place.posts.map((elt) => (elt.id === postId ? { ...post, id: postId } : elt));
+      places.value = updatedPlaces;
+      overrideStorage(places.value);
+    }
+  };
+
   onMounted(() => {
     places.value = fetchFromStorage();
   });
@@ -94,5 +106,6 @@ export function usePlaces() {
     deletePlace,
     addPost,
     deletePost,
+    editPost,
   };
 }
