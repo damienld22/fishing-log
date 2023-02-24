@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col my-4 items-center bg-base-200 shadow-xl p-4 border-[1px] rounded-lg border-black">
+  <div
+    class="flex flex-col my-4 items-center bg-base-200 shadow-xl p-4 border-[1px] rounded-lg border-black"
+    @click.stop="handleClick"
+  >
     <div class="flex justify-between mb-2 w-full">
       <p class="text-xs">{{ props.post.name }}</p>
       <div>
@@ -22,21 +25,27 @@
 <script setup lang="ts">
 import type { FishingPost, NewFishingPost } from "@/services/use-places";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import MapComponent from "../common/MapComponent.vue";
 import ModalComponent from "../common/ModalComponent.vue";
 import PostForm from "./PostForm.vue";
 
+const { push } = useRouter();
 const style = "height: 10vh; width: 70%";
 const zoom = 12;
 
 const props = defineProps<{
   post: FishingPost;
+  placeId: string;
 }>();
 
 const editPostOpen = ref(false);
 const handleEdition = (post: NewFishingPost) => {
   emits("editPost", props.post.id, post);
   editPostOpen.value = false;
+};
+const handleClick = () => {
+  push(`/places/${props.placeId}/posts/${props.post.id}`);
 };
 
 const emits = defineEmits<{

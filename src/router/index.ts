@@ -1,4 +1,5 @@
 import PlaceItemView from "@/views/PlaceItemView.vue";
+import PostItemView from "@/views/PostItemView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import PlacesView from "../views/PlacesView.vue";
@@ -22,6 +23,11 @@ const router = createRouter({
       path: "/places/:id",
       name: "placeItem",
       component: PlaceItemView,
+    },
+    {
+      path: "/places/:id/posts/:postId",
+      name: "postItem",
+      component: PostItemView,
     },
     {
       path: "/preparation",

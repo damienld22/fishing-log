@@ -5,6 +5,7 @@
     <div class="collapse-content flex flex-col">
       <div class="mb-6" v-if="props.place">
         <FishingPostItemList
+          :place-id="props.place.id"
           @delete-post="(id: string) => emits('deletePost', id)"
           @edit-post="(id: string, post: NewFishingPost) => emits('editPost', id, post)"
           :post="post"
