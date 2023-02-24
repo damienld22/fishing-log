@@ -6,7 +6,14 @@
     :loadTilesWhileInteracting="true"
     :style="props.style"
   >
-    <ol-view ref="view" :center="center" :rotation="rotation" :zoom="zoom" projection="EPSG:4326" />
+    <ol-view
+      ref="view"
+      :center="props.center"
+      :rotation="rotation"
+      :zoom="props.zoom"
+      projection="EPSG:4326"
+      @zoomChanged="onZoomChanged"
+    />
 
     <ol-tile-layer>
       <ol-source-osm />
@@ -32,10 +39,6 @@
 import type { GPSPosition } from "@/services/use-places";
 import { ref } from "vue";
 
-const rotation = ref(0);
-const radius = ref(5);
-const width = ref(2);
-
 const props = defineProps<{
   center?: GPSPosition;
   zoom: number;
@@ -43,11 +46,18 @@ const props = defineProps<{
   style: string;
 }>();
 
+const rotation = ref(0);
+const radius = ref(5);
+const width = ref(2);
+const currentZoom = ref(props.zoom);
+
+const onZoomChanged = (value: number) => (currentZoom.value = value);
+
 const emits = defineEmits<{
-  (e: "click", position: GPSPosition): void;
+  (e: "click", { zoom, position }: { zoom: number; position: GPSPosition }): void;
 }>();
 
 const onMapClick = (event: any) => {
-  emits("click", event.coordinate);
+  emits("click", { zoom: currentZoom.value, position: event.coordinate });
 };
 </script>

@@ -16,6 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@vue/cli-service": "^5.0.8",
+    "@vueuse/core": "^9.13.0",
     "daisyui": "^2.50.2",
     "uniqid": "^5.4.0",
     "vee-validate": "^4.7.4",

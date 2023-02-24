@@ -3,9 +3,9 @@
   <MapComponent
     :style="style"
     :point="modelValue"
-    :center="center"
-    :zoom="zoom"
-    @click="(value: GPSPosition) => emits('update:modelValue', value)"
+    :center="[longitude, latitude]"
+    :zoom="currentZoom"
+    @click="handleClick"
   />
   <p class="text-red-500">{{ errorMessage }}</p>
 </template>
@@ -13,17 +13,26 @@
 <script setup lang="ts">
 import type { GPSPosition } from "@/services/use-places";
 import { useField } from "vee-validate";
+import { useGeolocation } from "@vueuse/core";
 import MapComponent from "../common/MapComponent.vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-const center = ref<GPSPosition>([-2, 48]);
-const zoom = ref(10);
+const { coords } = useGeolocation();
+const longitude = computed(() => props?.modelValue?.[0] || coords.value?.longitude || 48);
+const latitude = computed(() => props?.modelValue?.[1] || coords.value?.latitude || -2);
+
+const currentZoom = ref(10);
 const style = "height: 20vh";
 
 const props = defineProps<{
   field: string;
   modelValue?: GPSPosition;
 }>();
+
+const handleClick = ({ position, zoom }: { position: GPSPosition; zoom: number }) => {
+  currentZoom.value = zoom;
+  emits("update:modelValue", position);
+};
 
 const emits = defineEmits<{
   (e: "update:modelValue", value: GPSPosition): void;
