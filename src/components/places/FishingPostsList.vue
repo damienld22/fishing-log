@@ -4,14 +4,7 @@
     <div class="collapse-title">Posts</div>
     <div class="collapse-content flex flex-col">
       <div class="mb-6" v-if="props.place">
-        <FishingPostItemList
-          :place-id="props.place.id"
-          @delete-post="(id: string) => emits('deletePost', id)"
-          @edit-post="(id: string, post: NewFishingPost) => emits('editPost', id, post)"
-          :post="post"
-          :key="post.id"
-          v-for="post in props.place.posts"
-        />
+        <FishingPostItemList :place-id="props.place.id" :post="post" :key="post.id" v-for="post in props.place.posts" />
       </div>
 
       <button @click="() => (modalCreationOpen = true)" class="btn btn-circle btn-xs self-end">
@@ -44,8 +37,6 @@ const props = defineProps<{
 
 const emits = defineEmits<{
   (e: "addPost", post: NewFishingPost): void;
-  (e: "deletePost", postId: string): void;
-  (e: "editPost", postId: string, post: NewFishingPost): void;
 }>();
 
 // Form handler

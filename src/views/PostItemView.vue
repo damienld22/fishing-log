@@ -1,10 +1,10 @@
 <template>
   <div class="flex justify-between items-center">
     <font-awesome-icon @click="back" icon="fa-arrow-left" size="2x" />
-    <!-- <div>
+    <div>
       <font-awesome-icon class="mr-2" @click="() => setEditionModalState(true)" icon="fa-pencil" size="1x" />
       <font-awesome-icon class="ml-2" @click="() => setDeleteModalState(true)" icon="fa-trash" size="1x" />
-    </div> -->
+    </div>
   </div>
 
   <!-- Title -->
@@ -18,24 +18,31 @@
   </div>
 
   <!-- Delete confirmation -->
-  <!-- <ConfirmModal
+  <ConfirmModal
     :open="deleteModalOpen"
     label="Do you really delete this place ?"
     @cancel="() => setDeleteModalState(false)"
     @validate="() => handleDelete()"
-  /> -->
+  />
 
   <!-- Edition modal -->
-  <!-- <ModalComponent :open="editionModalOpen">
-    <PlaceForm :place="place" @cancel="() => setEditionModalState(false)" @validate="handleEdition" />
-  </ModalComponent> -->
+  <ModalComponent :open="editionModalOpen">
+    <div class="flex flex-col">
+      <font-awesome-icon icon="fa-close" size="sm" class="self-end" @click="editionModalOpen = false" />
+
+      <PostForm :post="post" @validate="handleEdition" @cancel="() => (editionModalOpen = false)" />
+    </div>
+  </ModalComponent>
 </template>
 
 <script setup lang="ts">
 import CollapseText from "@/components/common/CollapseText.vue";
+import ConfirmModal from "@/components/common/ConfirmModal.vue";
 import MapComponent from "@/components/common/MapComponent.vue";
-import { usePlaces } from "@/services/use-places";
-import { computed } from "vue";
+import ModalComponent from "@/components/common/ModalComponent.vue";
+import PostForm from "@/components/places/PostForm.vue";
+import { usePlaces, type NewFishingPost } from "@/services/use-places";
+import { computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 const { params } = useRoute();
 
@@ -43,7 +50,7 @@ const style = "height: 50vh; width: 100%";
 const zoom = 12;
 
 // Element
-const { places } = usePlaces();
+const { places, deletePost, editPost } = usePlaces();
 const place = computed(() => places.value.find((elt) => elt.id === params.id));
 const post = computed(() => place?.value?.posts?.find((elt) => elt.id === params.postId));
 
@@ -51,20 +58,19 @@ const post = computed(() => place?.value?.posts?.find((elt) => elt.id === params
 const { back } = useRouter();
 
 // // Delete
-// const deleteModalOpen = ref(false);
-// const setDeleteModalState = (value: boolean) => (deleteModalOpen.value = value);
-// const handleDelete = () => {
-//   deletePlace(params.id as string);
-//   setDeleteModalState(false);
-//   back();
-// };
+const deleteModalOpen = ref(false);
+const setDeleteModalState = (value: boolean) => (deleteModalOpen.value = value);
+const handleDelete = () => {
+  deletePost(params.id as string, params.postId as string);
+  setDeleteModalState(false);
+  back();
+};
 
 // // Edition
-// const editionModalOpen = ref(false);
-// const setEditionModalState = (value: boolean) => (editionModalOpen.value = value);
-// const handleEdition = (place: NewFishingPlace) => {
-//   const id = params.id as string;
-//   updatePlace(id, { ...place, id });
-//   setEditionModalState(false);
-// };
+const editionModalOpen = ref(false);
+const setEditionModalState = (value: boolean) => (editionModalOpen.value = value);
+const handleEdition = (post: NewFishingPost) => {
+  editPost(params.id as string, params.postId as string, post);
+  setEditionModalState(false);
+};
 </script>
