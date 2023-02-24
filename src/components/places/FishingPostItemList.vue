@@ -17,7 +17,7 @@ import MapComponent from "../common/MapComponent.vue";
 
 const { push } = useRouter();
 const style = "height: 10vh; width: 70%";
-const zoom = 12;
+const zoom = 14;
 
 const props = defineProps<{
   post: FishingPost;

@@ -47,7 +47,7 @@ import { useRoute, useRouter } from "vue-router";
 const { params } = useRoute();
 
 const style = "height: 50vh; width: 100%";
-const zoom = 12;
+const zoom = 16;
 
 // Element
 const { places, deletePost, editPost } = usePlaces();
