@@ -10,6 +10,7 @@
   <!-- Title -->
   <div class="text-center text-xl mt-6">
     <span>{{ post?.name }}</span>
+    <font-awesome-icon @click="() => goTo(post?.location)" class="ml-4" icon="fa-route" size="md" />
   </div>
 
   <div class="mx-4 mt-6">
@@ -42,9 +43,11 @@ import MapComponent from "@/components/common/MapComponent.vue";
 import ModalComponent from "@/components/common/ModalComponent.vue";
 import PostForm from "@/components/places/PostForm.vue";
 import { usePlaces, type NewFishingPost } from "@/services/use-places";
+import { useWaze } from "@/services/use-waze";
 import { computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 const { params } = useRoute();
+const { goTo } = useWaze();
 
 const style = "height: 50vh; width: 100%";
 const zoom = 16;
