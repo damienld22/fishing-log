@@ -10,7 +10,7 @@
   <!-- Title -->
   <div class="text-center text-xl mt-6">
     <span>{{ post?.name }}</span>
-    <font-awesome-icon @click="() => goTo(post?.location)" class="ml-4" icon="fa-route" size="md" />
+    <font-awesome-icon @click="() => post?.location && goTo(post?.location)" class="ml-4" icon="fa-route" size="md" />
   </div>
 
   <div class="mx-4 mt-6">
