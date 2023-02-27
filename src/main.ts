@@ -20,6 +20,8 @@ import {
   faClose,
   faPencil,
   faRoute,
+  faMicrophone,
+  faStop,
 } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
 
@@ -39,7 +41,9 @@ library.add(
   faUpRightFromSquare,
   faClose,
   faPencil,
-  faRoute
+  faRoute,
+  faMicrophone,
+  faStop
 );
 
 app.component("font-awesome-icon", FontAwesomeIcon);
